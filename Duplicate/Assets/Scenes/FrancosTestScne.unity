@@ -134,8 +134,8 @@ GameObject:
   - component: {fileID: 592482511}
   - component: {fileID: 592482510}
   - component: {fileID: 592482512}
-  m_Layer: 4
-  m_Name: Floor
+  m_Layer: 0
+  m_Name: New Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -319,7 +319,7 @@ Transform:
   m_GameObject: {fileID: 705507993}
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
   m_LocalPosition: {x: 0, y: 3, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0.99999994}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -421,14 +421,6 @@ PrefabInstance:
     - target: {fileID: 1510948455746776366, guid: 6d3dbe93efcdae148973cc2dc84ec951, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 3543222571138538858, guid: 6d3dbe93efcdae148973cc2dc84ec951, type: 3}
-      propertyPath: JumpForce
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3543222571138538858, guid: 6d3dbe93efcdae148973cc2dc84ec951, type: 3}
-      propertyPath: FloorMask.m_Bits
-      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 7977087704887365325, guid: 6d3dbe93efcdae148973cc2dc84ec951, type: 3}
       propertyPath: m_RootOrder
