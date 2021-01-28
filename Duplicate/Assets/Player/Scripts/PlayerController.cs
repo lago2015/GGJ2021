@@ -19,9 +19,9 @@ public class PlayerController : MonoBehaviour
     public Transform GunRightTransform;
     public GameObject BulletPrefab;
     
-    
     private float _cooldownTime;
     private float _inputHorizontal;
+    private float _isJumpingAxis;
     private bool _isJumping;
     private bool _isGrounded;
     private bool _isShooting;
@@ -33,8 +33,11 @@ public class PlayerController : MonoBehaviour
     private int _specialDirection;    //meant to give either 1 or -1 to give the opposite robot an inverted behavior
     private const string _jumpAnimName = "IsJumping";
     private const string _moveAnimName = "MoveSpeed";
-    private const string _jumpButtonName = "Jump";
-    private const string _shootButtonName = "Fire1";
+    private const string _jump1ButtonName = "Jump";
+    private const string _jump2ButtonName = "Jump2";
+    private const string _shoot1ButtonName = "Fire1";
+    private const string _shoot2ButtonName = "Fire2";
+    
     private const string _horizontalAxisName = "Horizontal";
     
     private void Awake()
@@ -43,17 +46,19 @@ public class PlayerController : MonoBehaviour
         _anim = GetComponentInChildren<Animator>();
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _specialDirection = MovementInverted ? -1 : 1;
+        _isGrounded = true;
     }
 
     private void Update()
     {
         Movement();
+        Jump();
         Shoot();
     }
 
     private void Shoot()
     {
-        _isShooting = Input.GetButtonDown(_shootButtonName);
+        _isShooting = Input.GetButtonDown(MovementInverted ? _shoot2ButtonName : _shoot1ButtonName);
         if(_isShooting && _ableToShoot)
         {
             _ableToShoot = false;
@@ -67,36 +72,56 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void Jump()
+    {
+        _isJumpingAxis = Input.GetAxis(MovementInverted ? _jump2ButtonName : _jump1ButtonName);
+        
+        if(_isJumpingAxis > 0 && _isGrounded && !_isJumping)
+        {
+            _rb.AddForce(transform.up * JumpForce);
+            _anim.SetBool(_jumpAnimName,true);
+            StartCoroutine(DelayToCheckFloor());
+            _isJumping = true;
+        }
+        //Floor Checking
+        if(!_isGrounded && _isJumping)
+        {
+            _ray = Physics2D.Raycast(transform.position, -transform.up, 1, FloorMask);
+            Debug.DrawRay(transform.position,-transform.up,Color.red,100f);
+            if(_ray != null)
+            {
+                _isGrounded = true;
+                _isJumping = false;
+                _anim.SetBool(_jumpAnimName,false);
+            }    
+        }
+    }
+
+    IEnumerator DelayToCheckFloor()
+    {
+        yield return new WaitForSeconds(0.5f);
+        _isGrounded = false;
+    }
+
     private void Movement()
     {
         _inputHorizontal = Input.GetAxis(_horizontalAxisName);
-        _isJumping = Input.GetButtonDown(_jumpButtonName);
         
+        //Sprite Flipping
         if(_inputHorizontal != 0)
         {
             _spriteRenderer.flipX = _inputHorizontal < 0;
         }
-        if(_isJumping)
-        {
-            _rb.AddForce(transform.up * JumpForce);
-            _anim.SetBool(_jumpAnimName,true);
-            _isGrounded = false;
-        }
-        
-        transform.position += new Vector3(_inputHorizontal, 0, 0) * Time.deltaTime * MoveSpeed * _specialDirection;
+        //Animation
         var animMoveSpeed = _inputHorizontal;
         if(animMoveSpeed < 0)
         {
             animMoveSpeed *= -1;
         }
-        
         _anim.SetFloat(_moveAnimName,animMoveSpeed);
-
-        _ray = Physics2D.Raycast(transform.position, -transform.up, 5, FloorMask);
-        if(_ray != null && !_isJumping && !_isGrounded)
-        {
-            _isGrounded = true;
-            _anim.SetBool(_jumpAnimName,false);
-        }
+        
+        //Movement
+        transform.position += new Vector3(_inputHorizontal, 0, 0) * Time.deltaTime * MoveSpeed * _specialDirection;
+        
     }
 }
