@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     private float _cooldownTime;
     private float _inputSpeed = 1;
     private float _isJumpingAxis;
+    private float _floorCheckDistance = 0.5f;
     private bool _isJumping;
     private bool _isGrounded;
     private bool _isShooting;
@@ -36,7 +37,6 @@ public class PlayerController : MonoBehaviour
     private const string _jumpAnimName = "IsJumping";
     private const string _moveAnimName = "MoveSpeed";
     private const string _jump1ButtonName = "Jump";
-    private const string _jump2ButtonName = "Jump2";
     private const string _shoot1ButtonName = "Fire1";
     private const string _shoot2ButtonName = "Fire2";
     
@@ -85,20 +85,22 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        _isJumpingAxis = Input.GetAxis(MovementInverted ? _jump2ButtonName : _jump1ButtonName);
+        _isJumpingAxis = Input.GetAxis(_jump1ButtonName);
         //trying to make it a longer jump, the longer the trigger is held down
-        if(_isJumpingAxis > 0 && _rb.velocity.y < 1f && _isGrounded && !_isJumping)
+        if(_isJumpingAxis > 0 && _isGrounded && !_isJumping)
         {
             _rb.AddForce(transform.up * JumpForce);
             _anim.SetBool(_jumpAnimName,true);
             StartCoroutine(DelayToCheckFloor());
             _isJumping = true;
         }
+        
         //Floor Checking
         if(!_isGrounded && _isJumping)
         {
-            _ray = Physics2D.Raycast(transform.position, -transform.up, 0.25f, FloorMask);
-            if(_ray != null)
+            _ray = Physics2D.Raycast(transform.position, -transform.up, _floorCheckDistance, FloorMask);
+            //Debug.DrawRay(transform.position,-transform.up * _floorCheckDistance,Color.red,2);
+            if(_ray.collider != null)
             {
                 _isGrounded = true;
                 _isJumping = false;
@@ -109,7 +111,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator DelayToCheckFloor()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.25f);
         _isGrounded = false;
     }
 
