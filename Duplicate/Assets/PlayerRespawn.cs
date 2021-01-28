@@ -28,10 +28,13 @@ public class PlayerRespawn : MonoBehaviour
     }
 
     public void Respawn() {
+        playerA.transform.position = spawnA.position;
+        playerB.transform.position = spawnB.position;
         playerA.gameObject.SetActive(true);
         playerB.gameObject.SetActive(true);
         middle.SetActive(true);
 
+        Canvas.SetActive(false);
         if(_callback != null) { 
             _callback.cameraChange.swapback = true;
             _callback = null;
@@ -44,9 +47,6 @@ public class PlayerRespawn : MonoBehaviour
         if(dead) {
             playerA.gameObject.SetActive(false);
             playerB.gameObject.SetActive(false);
-
-            playerA.transform.position = spawnA.position;
-            playerB.transform.position = spawnB.position;
         }
     }
 }
