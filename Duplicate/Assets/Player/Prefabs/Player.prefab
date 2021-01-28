@@ -48,9 +48,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62717a9e2d01f934a8e908412022f8ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MovementInverted: 0
+  IsActive: 0
   FireRate: 1
   MoveSpeed: 5
-  JumpForce: 2.5
+  JumpForce: 200
   FloorMask:
     serializedVersion: 2
     m_Bits: 16
@@ -77,7 +79,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &5946883625804965009
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -91,7 +93,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.02}
+  m_Offset: {x: 0, y: 0.01}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}

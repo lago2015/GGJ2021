@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Specific for inverted Robot")]
     public bool MovementInverted;
+    public bool IsActive;
     public float FireRate;
     public float MoveSpeed;
     public float JumpForce;
@@ -18,9 +19,10 @@ public class PlayerController : MonoBehaviour
     public Transform GunLeftTransform;
     public Transform GunRightTransform;
     public GameObject BulletPrefab;
+
     
     private float _cooldownTime;
-    private float _inputHorizontal;
+    private float _inputSpeed = 1;
     private float _isJumpingAxis;
     private bool _isJumping;
     private bool _isGrounded;
@@ -38,7 +40,7 @@ public class PlayerController : MonoBehaviour
     private const string _shoot1ButtonName = "Fire1";
     private const string _shoot2ButtonName = "Fire2";
     
-    private const string _horizontalAxisName = "Horizontal";
+    
     
     private void Awake()
     {
@@ -51,6 +53,15 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetButtonDown("Submit"))
+        {
+            IsActive = true;
+        }
+        if(!IsActive)
+        {
+            _anim.SetFloat(_moveAnimName, 0);
+            return;
+        }
         Movement();
         Jump();
         Shoot();
@@ -75,8 +86,8 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         _isJumpingAxis = Input.GetAxis(MovementInverted ? _jump2ButtonName : _jump1ButtonName);
-        
-        if(_isJumpingAxis > 0 && _isGrounded && !_isJumping)
+        //trying to make it a longer jump, the longer the trigger is held down
+        if(_isJumpingAxis > 0 && _rb.velocity.y < 1f && _isGrounded && !_isJumping)
         {
             _rb.AddForce(transform.up * JumpForce);
             _anim.SetBool(_jumpAnimName,true);
@@ -86,8 +97,7 @@ public class PlayerController : MonoBehaviour
         //Floor Checking
         if(!_isGrounded && _isJumping)
         {
-            _ray = Physics2D.Raycast(transform.position, -transform.up, 1, FloorMask);
-            Debug.DrawRay(transform.position,-transform.up,Color.red,100f);
+            _ray = Physics2D.Raycast(transform.position, -transform.up, 0.25f, FloorMask);
             if(_ray != null)
             {
                 _isGrounded = true;
@@ -105,23 +115,8 @@ public class PlayerController : MonoBehaviour
 
     private void Movement()
     {
-        _inputHorizontal = Input.GetAxis(_horizontalAxisName);
-        
-        //Sprite Flipping
-        if(_inputHorizontal != 0)
-        {
-            _spriteRenderer.flipX = _inputHorizontal < 0;
-        }
-        //Animation
-        var animMoveSpeed = _inputHorizontal;
-        if(animMoveSpeed < 0)
-        {
-            animMoveSpeed *= -1;
-        }
-        _anim.SetFloat(_moveAnimName,animMoveSpeed);
-        
+        _anim.SetFloat(_moveAnimName,_inputSpeed);
         //Movement
-        transform.position += new Vector3(_inputHorizontal, 0, 0) * Time.deltaTime * MoveSpeed * _specialDirection;
-        
+        transform.position += new Vector3(_inputSpeed, 0, 0) * Time.deltaTime * MoveSpeed * _specialDirection;
     }
 }
