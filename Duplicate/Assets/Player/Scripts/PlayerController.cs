@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour
     public Transform GunRightTransform;
     public GameObject BulletPrefab;
 
-    
     private float _cooldownTime;
     private float _inputSpeed = 1;
     private float _isJumpingAxis;
@@ -39,8 +38,6 @@ public class PlayerController : MonoBehaviour
     private const string _jump1ButtonName = "Jump";
     private const string _shoot1ButtonName = "Fire1";
     private const string _shoot2ButtonName = "Fire2";
-    
-    
     
     private void Awake()
     {
@@ -86,7 +83,6 @@ public class PlayerController : MonoBehaviour
     private void Jump()
     {
         _isJumpingAxis = Input.GetAxis(_jump1ButtonName);
-        //trying to make it a longer jump, the longer the trigger is held down
         if(_isJumpingAxis > 0 && _isGrounded && !_isJumping)
         {
             _rb.AddForce(transform.up * JumpForce);

@@ -7,7 +7,7 @@ public class PlayerRespawn : MonoBehaviour
     public PlayerController playerA, playerB;
     public Transform spawnA, spawnB;
 
-    public GameObject Canvas, middle;
+    public GameObject Canvas, middle,NextLevel,respawn;
     public TMPro.TextMeshProUGUI text;
 
     private EndOfLevelArena _callback = null;
@@ -23,6 +23,8 @@ public class PlayerRespawn : MonoBehaviour
     public void PlayerWon(EndOfLevelArena callback) {
         text.text = "WUN";
         Canvas.SetActive(true);
+        NextLevel.SetActive(true);
+        respawn.SetActive(false);
         TriggerPlayers(false);
         _callback = callback;
     }
@@ -47,6 +49,10 @@ public class PlayerRespawn : MonoBehaviour
         if(dead) {
             playerA.gameObject.SetActive(false);
             playerB.gameObject.SetActive(false);
+            NextLevel.SetActive(false);
+            respawn.SetActive(true);
+            playerA.transform.position = spawnA.position;
+            playerB.transform.position = spawnB.position;
         }
     }
 }
