@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/FrancosTestScne.unity
+    guid: a245b84e7bc1a4542ae9664b2215fd03
+  - enabled: 1
+    path: Assets/Scenes/SampleScene.unity
+    guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level_1.unity
+    guid: f09b95eaa5b693e49bf1b78149fbb1ac
   m_configObjects: {}
