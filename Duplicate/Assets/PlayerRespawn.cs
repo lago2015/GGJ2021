@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -11,12 +12,24 @@ public class PlayerRespawn : MonoBehaviour
     public TMPro.TextMeshProUGUI EndGameMessage;
 
     private EndOfLevelArena _callback = null;
+    private CountdownStartGame _countdownRef;
+
+    private void Awake()
+    {
+        _countdownRef = FindObjectOfType<CountdownStartGame>();
+    }
 
     private void OnTriggerEnter2D(Collider2D other) {
         // Trigger death.
         TriggerPlayers(true);
         SetUpGameEndScreen(false);
         
+    }
+
+    public void StartGame()
+    {
+        playerA.IsActive = true;
+        playerB.IsActive = true;
     }
 
     public void PlayerWon(EndOfLevelArena callback)
@@ -37,6 +50,11 @@ public class PlayerRespawn : MonoBehaviour
         if(_callback != null) { 
             _callback.cameraChange.swapback = true;
             _callback = null;
+        }
+
+        if(_countdownRef)
+        {
+            _countdownRef.SetUpCountdown();
         }
     }
 

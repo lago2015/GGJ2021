@@ -58,10 +58,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetButtonDown("Submit"))
-        {
-            IsActive = true;
-        }
         if(!IsActive)
         {
             _anim.SetFloat(_moveAnimName, 0);
@@ -103,7 +99,7 @@ public class PlayerController : MonoBehaviour
         if(!_isGrounded && _isJumping)
         {
             _ray = Physics2D.Raycast(transform.position, -transform.up, _floorCheckDistance, FloorMask);
-            Debug.DrawRay(transform.position,-transform.up * _floorCheckDistance,Color.red,2);
+            //Debug.DrawRay(transform.position,-transform.up * _floorCheckDistance,Color.red,2);
             if(_ray.collider != null)
             {
                 _isJumping = false;
@@ -115,7 +111,7 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator DelayToEnableJump()
     {
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForFixedUpdate();
         _isGrounded = true;
         
     }
