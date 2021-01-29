@@ -23,7 +23,7 @@ public class PlayerController : MonoBehaviour
     private float _cooldownTime;
     private float _inputSpeed = 1;
     private float _isJumpingAxis;
-    private float _floorCheckDistance = 0.5f;
+    private float _floorCheckDistance = 0.25f;
     private bool _isJumping;
     private bool _isGrounded;
     private bool _isShooting;
@@ -103,14 +103,21 @@ public class PlayerController : MonoBehaviour
         if(!_isGrounded && _isJumping)
         {
             _ray = Physics2D.Raycast(transform.position, -transform.up, _floorCheckDistance, FloorMask);
-            //Debug.DrawRay(transform.position,-transform.up * _floorCheckDistance,Color.red,2);
+            Debug.DrawRay(transform.position,-transform.up * _floorCheckDistance,Color.red,2);
             if(_ray.collider != null)
             {
-                _isGrounded = true;
                 _isJumping = false;
                 _anim.SetBool(_jumpAnimName,false);
+                StartCoroutine(DelayToEnableJump());
             }    
         }
+    }
+
+    IEnumerator DelayToEnableJump()
+    {
+        yield return new WaitForSeconds(0.25f);
+        _isGrounded = true;
+        
     }
 
     IEnumerator DelayToCheckFloor()
