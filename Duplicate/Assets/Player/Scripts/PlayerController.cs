@@ -45,7 +45,15 @@ public class PlayerController : MonoBehaviour
         _anim = GetComponentInChildren<Animator>();
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _specialDirection = MovementInverted ? -1 : 1;
+        
+    }
+
+    private void OnEnable()
+    {
+        _ableToShoot = true;
         _isGrounded = true;
+        _isJumping = false;
+        _isShooting = false;
     }
 
     private void Update()

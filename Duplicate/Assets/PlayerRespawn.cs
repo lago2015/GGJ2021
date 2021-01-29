@@ -1,34 +1,31 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerRespawn : MonoBehaviour
 {
     public PlayerController playerA, playerB;
     public Transform spawnA, spawnB;
 
-    public GameObject Canvas, middle,NextLevel,respawn;
-    public TMPro.TextMeshProUGUI text;
+    public GameObject Canvas, middle,NextLevel,respawn,restart;
+    public TMPro.TextMeshProUGUI EndGameMessage;
 
     private EndOfLevelArena _callback = null;
 
     private void OnTriggerEnter2D(Collider2D other) {
         // Trigger death.
         TriggerPlayers(true);
-
-        text.text = "DED";
-        Canvas.SetActive(true);
+        SetUpGameEndScreen(false);
+        
     }
 
-    public void PlayerWon(EndOfLevelArena callback) {
-        text.text = "WUN";
-        Canvas.SetActive(true);
-        NextLevel.SetActive(true);
-        respawn.SetActive(false);
+    public void PlayerWon(EndOfLevelArena callback)
+    {
         TriggerPlayers(false);
+        SetUpGameEndScreen(true);
         _callback = callback;
     }
-    //Called from unity button
+    
     public void Respawn() {
         playerA.transform.position = spawnA.position;
         playerB.transform.position = spawnB.position;
@@ -49,10 +46,41 @@ public class PlayerRespawn : MonoBehaviour
         if(dead) {
             playerA.gameObject.SetActive(false);
             playerB.gameObject.SetActive(false);
-            NextLevel.SetActive(false);
-            respawn.SetActive(true);
             playerA.transform.position = spawnA.position;
             playerB.transform.position = spawnB.position;
         }
+    }
+
+    private void SetUpGameEndScreen(bool gameWon)
+    {
+        if(gameWon)
+        {
+            int currentLevel = SceneManager.GetActiveScene().buildIndex;
+            if(currentLevel + 1 > SceneManager.sceneCount)
+            {
+                //Game Complete
+                EndGameMessage.text = "Thank you for playing !";
+                restart.SetActive(true);
+                NextLevel.SetActive(false);
+                respawn.SetActive(false);
+            }
+            else
+            {
+                //Next Level
+                EndGameMessage.text = "WUN";
+                NextLevel.SetActive(true);
+                restart.SetActive(false);
+                respawn.SetActive(false);
+            }
+        }
+        else
+        {
+            //Player lost
+            EndGameMessage.text = "DED";
+            respawn.SetActive(true);
+            restart.SetActive(false);
+            NextLevel.SetActive(false);
+        }
+        Canvas.SetActive(true);
     }
 }

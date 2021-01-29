@@ -7376,7 +7376,8 @@ MonoBehaviour:
   middle: {fileID: 1432299280}
   NextLevel: {fileID: 1970593379}
   respawn: {fileID: 1970593380}
-  text: {fileID: 1970593381}
+  restart: {fileID: 1970593384}
+  EndGameMessage: {fileID: 1970593381}
 --- !u!61 &1679874479
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -7541,14 +7542,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1087172083}
     m_Modifications:
-    - target: {fileID: 3055249919052381702, guid: a9fe6923edefd1b4ebeb2e4d241493c7, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1679874478}
-    - target: {fileID: 3055249919052381702, guid: a9fe6923edefd1b4ebeb2e4d241493c7, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Respawn
-      objectReference: {fileID: 0}
     - target: {fileID: 3055249919059032538, guid: a9fe6923edefd1b4ebeb2e4d241493c7, type: 3}
       propertyPath: m_Name
       value: GameCompleted
@@ -7668,6 +7661,11 @@ MonoBehaviour:
 --- !u!1 &1970593382 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3055249919059032538, guid: a9fe6923edefd1b4ebeb2e4d241493c7, type: 3}
+  m_PrefabInstance: {fileID: 1970593377}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1970593384 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3882134265098197204, guid: a9fe6923edefd1b4ebeb2e4d241493c7, type: 3}
   m_PrefabInstance: {fileID: 1970593377}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1988456744
