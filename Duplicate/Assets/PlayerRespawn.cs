@@ -28,7 +28,7 @@ public class PlayerRespawn : MonoBehaviour
         TriggerPlayers(false);
         _callback = callback;
     }
-
+    //Called from unity button
     public void Respawn() {
         playerA.transform.position = spawnA.position;
         playerB.transform.position = spawnB.position;
