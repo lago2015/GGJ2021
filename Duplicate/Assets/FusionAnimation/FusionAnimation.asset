@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b48f6a7e2eb44264badad9dc8edf49bf, type: 3}
+  m_Name: FusionAnimation
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  Player1Image: {fileID: 0}
+  Player2Image: {fileID: 0}
+  MoveBack_Offset: {x: -1, y: 1, z: 0}
+  MoveBack_Duration: 1
+  MoveBack_Ease: 15
+  HoldInAir_DelayBefore: 0
+  HoldInAir_Duration: 1
+  HoldInAir_Strength: 0.1
+  HoldInAir_Vabrato: 100
+  HoldInAir_Ease: 1
+  FlyTogeather_Duration: 0.6
+  FlyTogether_Ease: 11
+  FlyTogether_MoveUp_Amount: 0.5
+  FlyTogether_MoveUp_Ease: 18

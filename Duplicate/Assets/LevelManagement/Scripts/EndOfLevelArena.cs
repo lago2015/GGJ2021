@@ -10,14 +10,16 @@ public class EndOfLevelArena : MonoBehaviour
 
     public PlayerRespawn respawn;
 
-    public void PlayerTriggered(bool left, Collider2D collider) {
-        if(left) _left = true;
+    public void PlayerTriggered(bool left, Collider2D collider)
+    {
+        if (left) _left = true;
         else _right = true;
 
         callbacks.Add(collider);
 
-        if(_left && _right) {
-            
+        if (_left && _right)
+        {
+
             cameraChange.swap = true;
 
             callbacks.ForEach(n => n.isTrigger = false);
@@ -25,6 +27,4 @@ public class EndOfLevelArena : MonoBehaviour
             callbacks.Clear();
         }
     }
-
-
 }

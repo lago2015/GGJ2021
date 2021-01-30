@@ -1,11 +1,14 @@
 ﻿#if UNITY_2018_3_OR_NEWER
+#pragma warning disable 618
 using UnityEditor;
 using UnityEditor.Experimental.SceneManagement;
 using UnityEngine;
-
-namespace AssetUsageFinder {
-    public static class PrefabUtilities {
-        public class PrefabProperties {
+namespace AssetUsageFinder
+{
+    public static class PrefabUtilities
+    {
+        public class PrefabProperties
+        {
             public bool IsPartOfStage;
 
             public bool IsStageRoot;
@@ -31,7 +34,8 @@ namespace AssetUsageFinder {
             public bool IsRootOfAnyPrefab => IsAssetRoot || IsInstanceRoot || IsStageRoot;
         }
 
-        public static PrefabProperties GetPrefabProperties(GameObject gameObject) {
+        public static PrefabProperties GetPrefabProperties(GameObject gameObject)
+        {
             PrefabProperties p = new PrefabProperties();
 
             p.IsPartOfPrefabAsset = PrefabUtility.IsPartOfPrefabAsset(gameObject);
@@ -43,13 +47,15 @@ namespace AssetUsageFinder {
             p.IsPartOfInstance = (nerestInstanceRoot != null);
             p.IsInstanceRoot = (gameObject == nerestInstanceRoot);
 
-            if (p.IsPartOfPrefabAsset) {
+            if (p.IsPartOfPrefabAsset)
+            {
                 p.PrefabAssetRoot = gameObject.transform.root.gameObject;
                 p.IsAssetRoot = (gameObject == p.PrefabAssetRoot);
             }
 
             var editorPrefabStage = PrefabStageUtility.GetCurrentPrefabStage();
-            if (editorPrefabStage != null) {
+            if (editorPrefabStage != null)
+            {
                 if (p.IsPartOfPrefabAsset == false)
                     p.IsPartOfStage = true;
 
@@ -57,25 +63,33 @@ namespace AssetUsageFinder {
                     p.IsStageRoot = true;
             }
 
-            if (p.IsRootOfAnyPrefab) {
-                if (p.IsStageRoot) {
+            if (p.IsRootOfAnyPrefab)
+            {
+                if (p.IsStageRoot)
+                {
                     p.Path = editorPrefabStage.prefabAssetPath;
                 }
-                else if (p.IsInstanceRoot) {
+                else if (p.IsInstanceRoot)
+                {
                     p.Path = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(gameObject);
                 }
-                else if (p.IsAssetRoot) {
+                else if (p.IsAssetRoot)
+                {
                     p.Path = AssetDatabase.GetAssetPath(gameObject);
                 }
             }
-            else {
-                if (p.IsPartOfStage) {
+            else
+            {
+                if (p.IsPartOfStage)
+                {
                     p.Path = editorPrefabStage.prefabAssetPath;
                 }
-                else if (p.IsPartOfInstance) {
+                else if (p.IsPartOfInstance)
+                {
                     p.Path = PrefabUtility.GetPrefabAssetPathOfNearestInstanceRoot(p.NearestInstanceRoot);
                 }
-                else if (p.IsPartOfPrefabAsset) {
+                else if (p.IsPartOfPrefabAsset)
+                {
                     p.Path = AssetDatabase.GetAssetPath(gameObject.transform.root.gameObject);
                 }
             }
@@ -84,4 +98,5 @@ namespace AssetUsageFinder {
         }
     }
 }
+#pragma warning restore 618
 #endif
