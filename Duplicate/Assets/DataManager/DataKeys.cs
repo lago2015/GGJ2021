@@ -16,4 +16,8 @@ public static class DataKeys
     public const string PLAYER_RESPAWN = "PlayerRespawn";
 
     public const string PROGRESSBAR = "ProgressBar";
+
+    public const string COUNTDOWN_STARTGAME = "Countdown_StartGame";
+
+    public const string SCENE_TRANSITION = "Scene_Transition";
 }

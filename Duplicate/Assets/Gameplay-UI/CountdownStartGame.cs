@@ -11,6 +11,11 @@ public class CountdownStartGame : MonoBehaviour
 
     private int currentCount;
 
+    private void Awake()
+    {
+        DataManager.SetValue(DataKeys.COUNTDOWN_STARTGAME,this);
+    }
+
     private void OnEnable()
     {
         SetUpCountdown();

@@ -5776,17 +5776,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f6509c0501d056442a17fd576e92aba5, type: 3}
---- !u!114 &1146064113 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2164243687188758888, guid: f6509c0501d056442a17fd576e92aba5, type: 3}
-  m_PrefabInstance: {fileID: 1146064112}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62717a9e2d01f934a8e908412022f8ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1188562148
 GameObject:
   m_ObjectHideFlags: 0
@@ -5954,17 +5943,6 @@ Transform:
   m_Father: {fileID: 1131476995}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1307044250 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3543222571138538858, guid: 6d3dbe93efcdae148973cc2dc84ec951, type: 3}
-  m_PrefabInstance: {fileID: 3791564367012646927}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62717a9e2d01f934a8e908412022f8ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1314978582
 GameObject:
   m_ObjectHideFlags: 3
@@ -7257,10 +7235,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b7c2deaa50e3f34abdb96370711c501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerA: {fileID: 1307044250}
-  playerB: {fileID: 1146064113}
   spawnA: {fileID: 336704298}
   spawnB: {fileID: 2112094684}
+  uiAnimator: {fileID: 0}
   EndGameCanvas: {fileID: 1826972430}
   middle: {fileID: 1826972429}
   NextLevel: {fileID: 0}

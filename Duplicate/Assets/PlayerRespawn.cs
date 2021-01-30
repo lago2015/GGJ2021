@@ -7,7 +7,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PlayerRespawn : MonoBehaviour
 {
-    public PlayerController playerA, playerB;
     public Animator uiAnimator;
 
     public Transform spawnA, spawnB;
@@ -18,11 +17,11 @@ public class PlayerRespawn : MonoBehaviour
     [HideInInspector] public TMPro.TextMeshProUGUI EndGameMessage;
 
     private EndOfLevelArena _callback = null;
-    private CountdownStartGame _countdownRef;
-
+    
+    private PlayerController _playerA;
+    private PlayerController _playerB;
     private void Awake()
     {
-        _countdownRef = FindObjectOfType<CountdownStartGame>();
         DataManager.SetValue(DataKeys.PLAYER_RESPAWN, this);
     }
 
@@ -40,8 +39,14 @@ public class PlayerRespawn : MonoBehaviour
 
     public void StartGame()
     {
-        playerA.IsActive = true;
-        playerB.IsActive = true;
+        if(!_playerA || !_playerB)
+        {
+            _playerA = DataManager.GetValue<PlayerController>(DataKeys.PLAYERA);
+            _playerB = DataManager.GetValue<PlayerController>(DataKeys.PLAYERB);
+        }
+        _playerA.IsActive = true;
+        _playerB.IsActive = true;
+        DataManager.GetValue<ProgressBar>(DataKeys.PROGRESSBAR).IsActive = true;
     }
 
     public void PlayerWon(EndOfLevelArena callback)
@@ -57,13 +62,14 @@ public class PlayerRespawn : MonoBehaviour
 
         _callback = callback;
     }
-
-    public void Respawn()
-    {
-        playerA.transform.position = spawnA.position;
-        playerB.transform.position = spawnB.position;
-        playerA.gameObject.SetActive(true);
-        playerB.gameObject.SetActive(true);
+    
+    public void Respawn() {
+        uiAnimator.SetTrigger("Reset");
+        
+        _playerA.transform.position = spawnA.position;
+        _playerB.transform.position = spawnB.position;
+        _playerA.gameObject.SetActive(true);
+        _playerB.gameObject.SetActive(true);
         middle.SetActive(true);
 
         EndGameCanvas.SetActive(false);
@@ -73,22 +79,17 @@ public class PlayerRespawn : MonoBehaviour
             _callback = null;
         }
 
-        if (_countdownRef)
-        {
-            _countdownRef.SetUpCountdown();
-        }
+        DataManager.GetValue<CountdownStartGame>(DataKeys.COUNTDOWN_STARTGAME).SetUpCountdown();
     }
 
-    private void TriggerPlayers(bool dead)
-    {
-        playerB.IsActive = playerA.IsActive = false;
+    private void TriggerPlayers(bool dead) {
+        _playerB.IsActive = _playerA.IsActive = false;
         middle.SetActive(false);
-        if (dead)
-        {
-            playerA.gameObject.SetActive(false);
-            playerB.gameObject.SetActive(false);
-            playerA.transform.position = spawnA.position;
-            playerB.transform.position = spawnB.position;
+        if(dead) {
+            _playerA.gameObject.SetActive(false);
+            _playerB.gameObject.SetActive(false);
+            _playerA.transform.position = spawnA.position;
+            _playerB.transform.position = spawnB.position;
         }
     }
 
@@ -104,7 +105,9 @@ public class PlayerRespawn : MonoBehaviour
                 restart.SetActive(true);
                 NextLevel.SetActive(false);
                 respawn.SetActive(false);
+                EndGameCanvas.SetActive(true);
                 uiAnimator.SetTrigger("GameBeaten");
+                
             }
             else
             {
@@ -122,8 +125,10 @@ public class PlayerRespawn : MonoBehaviour
             respawn.SetActive(true);
             restart.SetActive(false);
             NextLevel.SetActive(false);
+            EndGameCanvas.SetActive(true);
             uiAnimator.SetTrigger("GameLost");
+            
         }
-        // EndGameCanvas.SetActive(true);
+        
     }
 }

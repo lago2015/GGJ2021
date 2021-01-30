@@ -1,9 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 public class SceneTransition : MonoBehaviour
 {
+    private void Awake()
+    {
+        DataManager.SetValue(DataKeys.SCENE_TRANSITION,this);
+    }
+
     //Called from a unity button
     public void NextLevel()
     {
