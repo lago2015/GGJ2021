@@ -27,10 +27,10 @@ public class ProgressBar : MonoBehaviour
 
     private void Start()
     {
-        _startLinePosition = DataManager.GetValue<Vector3>(DataKeys.PLAYERA_STARTLINE);
-        _finishLinePosition = DataManager.GetValue<Vector3>(DataKeys.PLAYERA_FINISHLINE);
+        _startLinePosition = DataManager.MakeItRain<Vector3>(DataKeys.PLAYERA_STARTLINE);
+        _finishLinePosition = DataManager.MakeItRain<Vector3>(DataKeys.PLAYERA_FINISHLINE);
         _totalDistance = Vector2.Distance(_finishLinePosition, _startLinePosition);
-        _playerController = DataManager.GetValue<PlayerController>(DataKeys.PLAYERA);
+        _playerController = DataManager.MakeItRain<PlayerController>(DataKeys.PLAYERA);
     }
 
     private void FixedUpdate()

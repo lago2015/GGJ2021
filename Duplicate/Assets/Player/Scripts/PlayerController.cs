@@ -68,7 +68,7 @@ public class PlayerController : MonoBehaviour
         _specialDirection = MovementInverted ? -1 : 1;
 
         var key = MovementInverted ? DataKeys.PLAYERB : DataKeys.PLAYERA;
-        DataManager.SetValue(key, this);
+        DataManager.ToTheCloud(key, this);
     }
 
     private void OnEnable()
@@ -82,7 +82,7 @@ public class PlayerController : MonoBehaviour
 
         if (!MovementInverted)
         {
-            DataManager.SetValue(DataKeys.PLAYERA_STARTLINE, transform.position);
+            DataManager.ToTheCloud(DataKeys.PLAYERA_STARTLINE, transform.position);
         }
     }
 
