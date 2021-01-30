@@ -21,4 +21,6 @@ public static class DataKeys
     public const string COUNTDOWN_STARTGAME = "Countdown_StartGame";
 
     public const string SCENE_TRANSITION = "Scene_Transition";
+
+    public const string FUSION_SEQUENCE = "Fusion_Sequence";
 }

@@ -20,12 +20,12 @@ public class FusionSequence : SerializedScriptableObject
     public Sequence MainSequence()
     {
         Player1Image = DataManager
-                        .GetValue<PlayerController>(DataKeys.PLAYERA)
+                        .MakeItRain<PlayerController>(DataKeys.PLAYERA)
                         .GetComponentInChildren<SpriteRenderer>()
                         .gameObject;
 
         Player2Image = DataManager
-                        .GetValue<PlayerController>(DataKeys.PLAYERB)
+                        .MakeItRain<PlayerController>(DataKeys.PLAYERB)
                         .GetComponentInChildren<SpriteRenderer>()
                         .gameObject;
 

@@ -14,11 +14,11 @@ public class ArenaCollider : MonoBehaviour
     {
         if(leftSide)
         {
-            DataManager.SetValue(DataKeys.PLAYERA_FINISHLINE,transform.position);    
+            DataManager.ToTheCloud(DataKeys.PLAYERA_FINISHLINE,transform.position);    
         }
         else
         {
-            DataManager.SetValue(DataKeys.PLAYERB_FINISHLINE,transform.position);
+            DataManager.ToTheCloud(DataKeys.PLAYERB_FINISHLINE,transform.position);
         }
         
     }

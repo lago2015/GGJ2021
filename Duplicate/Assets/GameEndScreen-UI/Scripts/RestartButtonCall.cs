@@ -8,6 +8,6 @@ public class RestartButtonCall : MonoBehaviour
     //called from unity button
     public void RestartPlayers()
     {
-        DataManager.GetValue<SceneTransition>(DataKeys.SCENE_TRANSITION).RestartGame();
+        DataManager.MakeItRain<SceneTransition>(DataKeys.SCENE_TRANSITION).RestartGame();
     }
 }

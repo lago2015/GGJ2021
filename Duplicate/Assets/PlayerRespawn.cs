@@ -10,7 +10,6 @@ public class PlayerRespawn : MonoBehaviour
     public Animator uiAnimator;
 
     public Transform spawnA, spawnB;
-    [InlineEditor] public FusionSequence FusionSequence;
 
     //Assigned by DeathZoneAssigner
     [HideInInspector] public GameObject EndGameCanvas, middle, NextLevel, respawn, restart;
@@ -22,7 +21,7 @@ public class PlayerRespawn : MonoBehaviour
     private PlayerController _playerB;
     private void Awake()
     {
-        DataManager.SetValue(DataKeys.PLAYER_RESPAWN, this);
+        DataManager.ToTheCloud(DataKeys.PLAYER_RESPAWN, this);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -41,12 +40,12 @@ public class PlayerRespawn : MonoBehaviour
     {
         if(!_playerA || !_playerB)
         {
-            _playerA = DataManager.GetValue<PlayerController>(DataKeys.PLAYERA);
-            _playerB = DataManager.GetValue<PlayerController>(DataKeys.PLAYERB);
+            _playerA = DataManager.MakeItRain<PlayerController>(DataKeys.PLAYERA);
+            _playerB = DataManager.MakeItRain<PlayerController>(DataKeys.PLAYERB);
         }
         _playerA.IsActive = true;
         _playerB.IsActive = true;
-        DataManager.GetValue<ProgressBar>(DataKeys.PROGRESSBAR).IsActive = true;
+        DataManager.MakeItRain<ProgressBar>(DataKeys.PROGRESSBAR).IsActive = true;
     }
 
     public void PlayerWon(EndOfLevelArena callback)
@@ -54,12 +53,10 @@ public class PlayerRespawn : MonoBehaviour
         TriggerPlayers(false);
 
         // Play Fusion Sequence and then
-        FusionSequence.MainSequence()
-                        .Play()
-                        .OnComplete(() => Debug.Log("Complete!"));
-
-        // SetUpGameEndScreen(true); // TODO maybe call this, or something else to trigger a leveltransition.
-
+        DataManager.MakeItRain<FusionSequence>(DataKeys.FUSION_SEQUENCE)
+                        .MainSequence()
+                        .Play();
+        DataManager.MakeItRain<SceneTransition>(DataKeys.SCENE_TRANSITION).NextLevel();
         _callback = callback;
     }
     
@@ -79,7 +76,7 @@ public class PlayerRespawn : MonoBehaviour
             _callback = null;
         }
 
-        DataManager.GetValue<CountdownStartGame>(DataKeys.COUNTDOWN_STARTGAME).SetUpCountdown();
+        DataManager.MakeItRain<CountdownStartGame>(DataKeys.COUNTDOWN_STARTGAME).SetUpCountdown();
     }
 
     private void TriggerPlayers(bool dead) {
@@ -104,10 +101,8 @@ public class PlayerRespawn : MonoBehaviour
                 EndGameMessage.text = "Thank you for playing !";
                 restart.SetActive(true);
                 NextLevel.SetActive(false);
-                respawn.SetActive(false);
-                EndGameCanvas.SetActive(true);
+                respawn.SetActive(false);       
                 uiAnimator.SetTrigger("GameBeaten");
-                
             }
             else
             {
@@ -126,10 +121,9 @@ public class PlayerRespawn : MonoBehaviour
             respawn.SetActive(true);
             restart.SetActive(false);
             NextLevel.SetActive(false);
-            EndGameCanvas.SetActive(true);
             uiAnimator.SetTrigger("GameLost");
             
         }
-        
+        EndGameCanvas.SetActive(true);
     }
 }

@@ -7,7 +7,7 @@ public class SceneTransition : MonoBehaviour
 {
     private void Awake()
     {
-        DataManager.SetValue(DataKeys.SCENE_TRANSITION,this);
+        DataManager.ToTheCloud(DataKeys.SCENE_TRANSITION,this);
     }
 
     //Called from a unity button

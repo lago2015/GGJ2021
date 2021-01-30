@@ -10,7 +10,7 @@ public static class DataManager
 {
     private static Dictionary<string, object> _data = new Dictionary<string, object>();
 
-    public static void SetValue(string key, object value)
+    public static void ToTheCloud(string key, object value)
     {
         if(_data.ContainsKey(key))
         {
@@ -22,7 +22,7 @@ public static class DataManager
         }
     }
 
-    public static AnyType GetValue<AnyType>(string key)
+    public static AnyType MakeItRain<AnyType>(string key)
     {
         if(_data.ContainsKey(key))
         {

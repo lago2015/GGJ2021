@@ -1052,8 +1052,8 @@ GameObject:
   - component: {fileID: 7764541573183415016}
   - component: {fileID: 7764541573183415015}
   - component: {fileID: 7764541573183415014}
-  - component: {fileID: 7764541573183415013}
   - component: {fileID: 4049298774155588842}
+  - component: {fileID: 2330178589861212068}
   m_Layer: 5
   m_Name: NextLevel
   m_TagString: Untagged
@@ -1162,7 +1162,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7764541573183415013}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: SceneTransition, Assembly-CSharp
         m_MethodName: NextLevel
         m_Mode: 1
@@ -1174,18 +1174,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &7764541573183415013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7764541573183415011}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 155a2af7e689b214cb308eadf95b3079, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!225 &4049298774155588842
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1198,6 +1186,18 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &2330178589861212068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7764541573183415011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f48cca16cc42e84ca6f55d73eef984b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7764541573211622153
 GameObject:
   m_ObjectHideFlags: 0
@@ -1749,6 +1749,7 @@ GameObject:
   - component: {fileID: 7764541574016682865}
   - component: {fileID: 7764541574016682864}
   - component: {fileID: 2173117010926879439}
+  - component: {fileID: 7136867444431479072}
   m_Layer: 5
   m_Name: UI_OverlayCanvas
   m_TagString: Untagged
@@ -1858,6 +1859,19 @@ MonoBehaviour:
   MiddleImage: {fileID: 7764541573808226704}
   EndGameMessage: {fileID: 7764541573537660369}
   Animator: {fileID: 2495270716830553978}
+  FusionSequence: {fileID: 11400000, guid: d88fdd3e1c857e1469cbf2d77a470f01, type: 2}
+--- !u!114 &7136867444431479072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7764541574016682863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 155a2af7e689b214cb308eadf95b3079, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7764541574634228411
 GameObject:
   m_ObjectHideFlags: 0
@@ -2213,7 +2227,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4b04ca7c958b8b43a1806d77c065fcb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneTransition: {fileID: 7764541573183415013}
 --- !u!225 &5769510301234926913
 CanvasGroup:
   m_ObjectHideFlags: 0

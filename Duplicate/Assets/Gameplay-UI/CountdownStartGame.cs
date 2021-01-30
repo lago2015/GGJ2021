@@ -13,7 +13,7 @@ public class CountdownStartGame : MonoBehaviour
 
     private void Awake()
     {
-        DataManager.SetValue(DataKeys.COUNTDOWN_STARTGAME,this);
+        DataManager.ToTheCloud(DataKeys.COUNTDOWN_STARTGAME,this);
     }
 
     private void OnEnable()
@@ -42,7 +42,7 @@ public class CountdownStartGame : MonoBehaviour
         CountdownText.text = $"GO!";
         countdownAnim.SetTrigger("Flip");
         yield return new WaitForSeconds(0.25f);
-        DataManager.GetValue<PlayerRespawn>(DataKeys.PLAYER_RESPAWN).StartGame();
+        DataManager.MakeItRain<PlayerRespawn>(DataKeys.PLAYER_RESPAWN).StartGame();
         CountdownImage.SetActive(false);
     }
 }

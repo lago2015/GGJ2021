@@ -22,7 +22,7 @@ public class ProgressBar : MonoBehaviour
     private void Awake()
     {
         if (_instance == null) _instance = this;
-        DataManager.SetValue(DataKeys.PROGRESSBAR, this);
+        DataManager.ToTheCloud(DataKeys.PROGRESSBAR,this);
     }
 
     private void Start()

@@ -109,20 +109,21 @@ public class PlayerController : MonoBehaviour
         {
             _ableToSlide = false;
             _actor.SetAnimation(PlayerStates.Slide);
-            _collider.offset = ColliderSlidingOffset;
-            _collider.size = ColliderSlidingSize;
             StartCoroutine(SlideDuration());
         }
     }
 
     IEnumerator SlideDuration()
     {
+        yield return new WaitForSeconds(0.25f);
+        _collider.offset = ColliderSlidingOffset;
+        _collider.size = ColliderSlidingSize;
         yield return new WaitForSeconds(_actor.AnimationLength);
+        _actor.SetAnimation(PlayerStates.Grounded);
+        yield return new WaitForSeconds(0.25f);
         _isSliding = false;
         _collider.offset = _defaultSlidingOffset;
         _collider.size = _defaultSlidingSizeY;
-        _actor.SetAnimation(PlayerStates.Grounded);
-        yield return new WaitForSeconds(0.25f);
         _ableToSlide = true;
     }
 

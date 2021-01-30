@@ -12,6 +12,7 @@ public class DeathZoneAssigner : MonoBehaviour
     public GameObject MiddleImage;
     public TMPro.TextMeshProUGUI EndGameMessage;
     public Animator Animator;
+    public FusionSequence FusionSequence;
     private PlayerRespawn _playerRespawn;
     
 
@@ -27,5 +28,7 @@ public class DeathZoneAssigner : MonoBehaviour
         _playerRespawn.restart = RestartButton;
         _playerRespawn.EndGameMessage = EndGameMessage;
         _playerRespawn.uiAnimator = Animator;
+        
+        DataManager.ToTheCloud(DataKeys.FUSION_SEQUENCE,FusionSequence);
     }
 }

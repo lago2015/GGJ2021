@@ -35,7 +35,7 @@ public class PlayerPositionCheck : MonoBehaviour
             if(_previousPositions[0] == position)
             {
                 //Game over
-                DataManager.GetValue<PlayerRespawn>(DataKeys.PLAYER_RESPAWN).GameOver();
+                DataManager.MakeItRain<PlayerRespawn>(DataKeys.PLAYER_RESPAWN).GameOver();
             }
         }
     }
