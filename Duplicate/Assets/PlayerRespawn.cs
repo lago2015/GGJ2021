@@ -19,6 +19,7 @@ public class PlayerRespawn : MonoBehaviour
     private void Awake()
     {
         _countdownRef = FindObjectOfType<CountdownStartGame>();
+        DataManager.SetValue(DataKeys.PLAYER_RESPAWN,this);
     }
 
     private void OnTriggerEnter2D(Collider2D other) {

@@ -71,6 +71,15 @@ public class PlayerController : MonoBehaviour
         _actor = GetComponent<PlayerAnimation>();
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _specialDirection = MovementInverted ? -1 : 1;
+
+        if(MovementInverted)
+        {
+            DataManager.SetValue(DataKeys.PLAYERB,this);
+        }
+        else
+        {
+            DataManager.SetValue(DataKeys.PLAYERA,this);
+        }
     }
 
     private void OnEnable()

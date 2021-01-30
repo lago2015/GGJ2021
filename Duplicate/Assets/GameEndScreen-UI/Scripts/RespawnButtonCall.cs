@@ -5,15 +5,11 @@ using UnityEngine;
 
 public class RespawnButtonCall : MonoBehaviour
 {
-    private PlayerRespawn _playerRespawn;
-    private void Awake()
-    {
-        _playerRespawn = FindObjectOfType<PlayerRespawn>();
-    }
+    
     //called from unity button
     public void RespawnPlayers()
     {
-        if(!_playerRespawn) return;
-        _playerRespawn.Respawn();
+        
+        DataManager.GetValue<PlayerRespawn>(DataKeys.PLAYER_RESPAWN).Respawn();
     }
 }

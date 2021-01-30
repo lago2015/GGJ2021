@@ -4,6 +4,12 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// - Need to know total distance from finish and current position
+///     - make it normalized so its readable for the progress bar
+/// 
+/// </summary>
+
 public class ProgressBar : MonoBehaviour
 {
     [Required] public Slider SliderL;

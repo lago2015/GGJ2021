@@ -6,13 +6,11 @@ public class PlayerPositionCheck : MonoBehaviour
 {
     public int MaxPositions;
     private List<Vector2> _previousPositions = new List<Vector2>();
-    private PlayerRespawn _playerRespawn;
     private PlayerController _playerController;
 
     private void Awake()
     {
         _playerController = GetComponent<PlayerController>();
-        _playerRespawn = FindObjectOfType<PlayerRespawn>();
     }
 
     private void FixedUpdate()
@@ -37,7 +35,7 @@ public class PlayerPositionCheck : MonoBehaviour
             if(_previousPositions[0] == position)
             {
                 //Game over
-                _playerRespawn.GameOver();
+                DataManager.GetValue<PlayerRespawn>(DataKeys.PLAYER_RESPAWN).GameOver();
             }
         }
     }

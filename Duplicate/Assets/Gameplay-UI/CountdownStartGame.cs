@@ -9,13 +9,7 @@ public class CountdownStartGame : MonoBehaviour
     public TMPro.TextMeshProUGUI CountdownText;
     public Animator countdownAnim;
 
-    private PlayerRespawn _playerRespawn;
     private int currentCount;
-
-    private void Awake()
-    {
-        _playerRespawn = FindObjectOfType<PlayerRespawn>();
-    }
 
     private void OnEnable()
     {
@@ -43,7 +37,7 @@ public class CountdownStartGame : MonoBehaviour
         CountdownText.text = $"GO!";
         countdownAnim.SetTrigger("Flip");
         yield return new WaitForSeconds(0.25f);
-        _playerRespawn.StartGame();
+        DataManager.GetValue<PlayerRespawn>(DataKeys.PLAYER_RESPAWN).StartGame();
         CountdownImage.SetActive(false);
     }
 }
