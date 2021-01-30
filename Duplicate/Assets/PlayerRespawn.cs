@@ -116,6 +116,7 @@ public class PlayerRespawn : MonoBehaviour
                 NextLevel.SetActive(true);
                 restart.SetActive(false);
                 respawn.SetActive(false);
+                uiAnimator.SetTrigger("LevelWon");
             }
         }
         else
