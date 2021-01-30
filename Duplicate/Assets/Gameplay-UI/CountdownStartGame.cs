@@ -7,6 +7,7 @@ public class CountdownStartGame : MonoBehaviour
 {
     public GameObject CountdownImage;
     public TMPro.TextMeshProUGUI CountdownText;
+    public Animator countdownAnim;
 
     private PlayerRespawn _playerRespawn;
     private int currentCount;
@@ -19,6 +20,7 @@ public class CountdownStartGame : MonoBehaviour
     private void OnEnable()
     {
         SetUpCountdown();
+        if(countdownAnim.GetCurrentAnimatorClipInfo(0)[0].clip.name == "GO") countdownAnim.SetTrigger("Flip");
     }
 
     public void SetUpCountdown()
@@ -38,7 +40,8 @@ public class CountdownStartGame : MonoBehaviour
         yield return new WaitForSeconds(1);
         CountdownText.text = $"{currentCount}";
         yield return new WaitForSeconds(1);
-        CountdownText.text = $"GO !";
+        CountdownText.text = $"GO!";
+        countdownAnim.SetTrigger("Flip");
         yield return new WaitForSeconds(0.25f);
         _playerRespawn.StartGame();
         CountdownImage.SetActive(false);

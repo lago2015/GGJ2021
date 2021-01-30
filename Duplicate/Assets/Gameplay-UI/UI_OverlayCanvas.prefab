@@ -290,6 +290,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameCompleted
       objectReference: {fileID: 0}
+    - target: {fileID: 3055249919059032538, guid: a9fe6923edefd1b4ebeb2e4d241493c7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3055249919059032539, guid: a9fe6923edefd1b4ebeb2e4d241493c7, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
