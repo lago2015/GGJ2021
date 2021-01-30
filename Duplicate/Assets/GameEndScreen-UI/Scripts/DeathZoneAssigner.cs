@@ -11,7 +11,9 @@ public class DeathZoneAssigner : MonoBehaviour
     public GameObject RestartButton;
     public GameObject MiddleImage;
     public TMPro.TextMeshProUGUI EndGameMessage;
+    public Animator Animator;
     private PlayerRespawn _playerRespawn;
+    
 
     private void Awake()
     {
@@ -24,5 +26,6 @@ public class DeathZoneAssigner : MonoBehaviour
         _playerRespawn.respawn = RespawnButton;
         _playerRespawn.restart = RestartButton;
         _playerRespawn.EndGameMessage = EndGameMessage;
+        _playerRespawn.uiAnimator = Animator;
     }
 }

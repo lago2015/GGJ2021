@@ -7,6 +7,7 @@ public class PlayerRespawn : MonoBehaviour
 {
     public PlayerController playerA, playerB;
     public Transform spawnA, spawnB;
+    public Animator uiAnimator;
     
     //Assigned by DeathZoneAssigner
     [HideInInspector] public GameObject EndGameCanvas, middle,NextLevel,respawn,restart;
@@ -46,13 +47,14 @@ public class PlayerRespawn : MonoBehaviour
     }
     
     public void Respawn() {
+        uiAnimator.SetTrigger("Reset");
         playerA.transform.position = spawnA.position;
         playerB.transform.position = spawnB.position;
         playerA.gameObject.SetActive(true);
         playerB.gameObject.SetActive(true);
         middle.SetActive(true);
 
-        EndGameCanvas.SetActive(false);
+        // EndGameCanvas.SetActive(false);
         if(_callback != null) { 
             _callback.cameraChange.swapback = true;
             _callback = null;
@@ -87,6 +89,7 @@ public class PlayerRespawn : MonoBehaviour
                 restart.SetActive(true);
                 NextLevel.SetActive(false);
                 respawn.SetActive(false);
+                uiAnimator.SetTrigger("GameBeaten");
             }
             else
             {
@@ -104,7 +107,8 @@ public class PlayerRespawn : MonoBehaviour
             respawn.SetActive(true);
             restart.SetActive(false);
             NextLevel.SetActive(false);
+            uiAnimator.SetTrigger("GameLost");
         }
-        EndGameCanvas.SetActive(true);
+        // EndGameCanvas.SetActive(true);
     }
 }
