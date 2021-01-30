@@ -41,7 +41,6 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D _rb;
     private SpriteRenderer _spriteRenderer;
     private BoxCollider2D _collider;
-    private PlayerRespawn _playerRespawn;
     private int _specialDirection;    //meant to give either 1 or -1 to give the opposite robot an inverted behavior
     
     private const string _jump1ButtonName = "Jump";
@@ -68,7 +67,6 @@ public class PlayerController : MonoBehaviour
         _collider = GetComponent<BoxCollider2D>();
         _defaultSlidingOffset = _collider.offset;
         _defaultSlidingSizeY = _collider.size;
-        _playerRespawn = FindObjectOfType<PlayerRespawn>();
         _rb = GetComponent<Rigidbody2D>();
         _actor = GetComponent<PlayerAnimation>();
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
