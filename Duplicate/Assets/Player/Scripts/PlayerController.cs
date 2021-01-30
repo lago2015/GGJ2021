@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     public float FireRate;
     public float MoveSpeed;
     public float JumpForce;
+    public Vector2 ColliderSlidingOffset;
+    public Vector2 ColliderSlidingSize;
     public LayerMask FloorMask;
     public Transform GunLeftTransform;
     public Transform GunRightTransform;
@@ -23,35 +25,47 @@ public class PlayerController : MonoBehaviour
     private float _inputSpeed = 1;
     private float _isJumpingAxis;
     private float _floorCheckDistance = 0.25f;
+    
+    
     private bool _isJumping;
     private bool _isGrounded;
     private bool _isShooting;
-    private bool _ableToShoot;
+    private bool _isSliding;
     private bool _isActive;
+    private bool _ableToShoot;
+    private bool _ableToSlide;
 
+    private Vector2 _defaultSlidingOffset;
+    private Vector2 _defaultSlidingSizeY;
     private PlayerAnimation _actor;
     private RaycastHit2D _ray;
     private Rigidbody2D _rb;
     private SpriteRenderer _spriteRenderer;
+    private BoxCollider2D _collider;
     private PlayerRespawn _playerRespawn;
     private int _specialDirection;    //meant to give either 1 or -1 to give the opposite robot an inverted behavior
     
     private const string _jump1ButtonName = "Jump";
     private const string _shoot1ButtonName = "Fire1";
     private const string _shoot2ButtonName = "Fire2";
-    
+    private const string _slide1ButtonName = "Slide1";
+    private const string _slide2ButtonName = "Slide2";
     public bool IsActive
     {
-        get { return _isActive;}
+        get => _isActive;
         set
         {
             if(_actor) _actor.SetMoveSpeed(value); 
+            if(!value) StopAllCoroutines();
             _isActive = value;
         }
     }
     
     private void Awake()
     {
+        _collider = GetComponent<BoxCollider2D>();
+        _defaultSlidingOffset = _collider.offset;
+        _defaultSlidingSizeY = _collider.size;
         _playerRespawn = FindObjectOfType<PlayerRespawn>();
         _rb = GetComponent<Rigidbody2D>();
         _actor = GetComponent<PlayerAnimation>();
@@ -62,10 +76,11 @@ public class PlayerController : MonoBehaviour
     private void OnEnable()
     {
         _ableToShoot = true;
+        _ableToSlide = true;
         _isGrounded = true;
         _isJumping = false;
         _isShooting = false;
-        
+        _isSliding = false;
     }
 
     private void Update()
@@ -76,14 +91,40 @@ public class PlayerController : MonoBehaviour
             return;
         }
         Movement();
+        Slide();
         Jump();
         //Shoot();
         FloorAndFallingCheck();
-        /*//Check velocity if to determine death
+        /*//need a delay to give time to get velocity
         if(_rb.velocity.magnitude <= 0)
         {
             _playerRespawn.GameOver();
         }*/
+    }
+
+    private void Slide()
+    {
+        if(!_isGrounded || _isSliding) return;
+        _isSliding = Input.GetButtonDown(MovementInverted ? _slide2ButtonName : _slide1ButtonName);
+        if(_isSliding && _ableToSlide)
+        {
+            _ableToSlide = false;
+            _actor.SetAnimation(PlayerStates.Slide);
+            _collider.offset = ColliderSlidingOffset;
+            _collider.size = ColliderSlidingSize;
+            StartCoroutine(SlideDuration());
+        }
+    }
+
+    IEnumerator SlideDuration()
+    {
+        yield return new WaitForSeconds(_actor.AnimationLength);
+        _isSliding = false;
+        _collider.offset = _defaultSlidingOffset;
+        _collider.size = _defaultSlidingSizeY;
+        _actor.SetAnimation(PlayerStates.Grounded);
+        yield return new WaitForSeconds(0.25f);
+        _ableToSlide = true;
     }
 
     private void Shoot()
@@ -104,6 +145,7 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
+        if(_isSliding) return;
         //Jumping Check
         _isJumpingAxis = Input.GetAxis(_jump1ButtonName);
         if(_isJumpingAxis > 0 && _isGrounded && !_isJumping)
@@ -113,7 +155,6 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(DelayToCheckFloor());
             _isJumping = true;
         }
-        
     }
 
     private void FloorAndFallingCheck()
@@ -157,6 +198,4 @@ public class PlayerController : MonoBehaviour
         //Movement
         transform.position += new Vector3(_inputSpeed, 0, 0) * Time.deltaTime * MoveSpeed * _specialDirection;
     }
-
-    
 }

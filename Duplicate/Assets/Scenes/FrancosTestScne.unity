@@ -3343,6 +3343,46 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: 94, y: -3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 7
+      m_TileSpriteIndex: 7
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 95, y: -3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 7
+      m_TileSpriteIndex: 7
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 96, y: -3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 7
+      m_TileSpriteIndex: 7
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
+  - first: {x: 97, y: -3, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 7
+      m_TileSpriteIndex: 7
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: 98, y: -3, z: 0}
     second:
       serializedVersion: 2
@@ -3699,7 +3739,7 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 143
+  - m_RefCount: 147
     m_Data: {fileID: 11400000, guid: ff93d33a00f18ac4f92d48ecba7dade3, type: 2}
   m_TileSpriteArray:
   - m_RefCount: 0
@@ -3716,10 +3756,10 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 143
+  - m_RefCount: 147
     m_Data: {fileID: -6778508894661051271, guid: 599a9b134127acd488e73f5a8d3bd1c8, type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 223
+  - m_RefCount: 227
     m_Data:
       e00: 1
       e01: 0
@@ -3774,7 +3814,7 @@ Tilemap:
       e32: 6.9e-44
       e33: 6.9e-44
   m_TileColorArray:
-  - m_RefCount: 223
+  - m_RefCount: 227
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -6238,7 +6278,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1679874477}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f3b125a846b91564990e4d4f2526c817, type: 3}
+  m_Script: {fileID: 11500000, guid: 2b7c2deaa50e3f34abdb96370711c501, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerA: {fileID: 1307044250}
@@ -6976,10 +7016,6 @@ PrefabInstance:
     - target: {fileID: 4310799782741897516, guid: f6509c0501d056442a17fd576e92aba5, type: 3}
       propertyPath: m_Name
       value: InvertPlayer
-      objectReference: {fileID: 0}
-    - target: {fileID: 4310799782741897516, guid: f6509c0501d056442a17fd576e92aba5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4724470681212670671, guid: f6509c0501d056442a17fd576e92aba5, type: 3}
       propertyPath: m_RootOrder
