@@ -436,6 +436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CountdownImage: {fileID: 1672773219721201837}
   CountdownText: {fileID: 5150347475742862322}
+  countdownAnim: {fileID: 3687016619680112094}
 --- !u!1 &7349452230053998847
 GameObject:
   m_ObjectHideFlags: 0
