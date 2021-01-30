@@ -26,7 +26,6 @@ public class PlayerController : MonoBehaviour
     private float _isJumpingAxis;
     private float _floorCheckDistance = 0.25f;
     
-    
     private bool _isJumping;
     private bool _isGrounded;
     private bool _isShooting;
@@ -34,7 +33,7 @@ public class PlayerController : MonoBehaviour
     private bool _isActive;
     private bool _ableToShoot;
     private bool _ableToSlide;
-
+    
     private Vector2 _defaultSlidingOffset;
     private Vector2 _defaultSlidingSizeY;
     private PlayerAnimation _actor;
@@ -55,11 +54,14 @@ public class PlayerController : MonoBehaviour
         get => _isActive;
         set
         {
-            if(_actor) _actor.SetMoveSpeed(value); 
+            
+            if(_actor) _actor.SetMoveSpeed(value);
             if(!value) StopAllCoroutines();
+
             _isActive = value;
         }
     }
+
     
     private void Awake()
     {
@@ -95,11 +97,7 @@ public class PlayerController : MonoBehaviour
         Jump();
         //Shoot();
         FloorAndFallingCheck();
-        /*//need a delay to give time to get velocity
-        if(_rb.velocity.magnitude <= 0)
-        {
-            _playerRespawn.GameOver();
-        }*/
+        
     }
 
     private void Slide()

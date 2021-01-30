@@ -7,9 +7,10 @@ public class PlayerRespawn : MonoBehaviour
 {
     public PlayerController playerA, playerB;
     public Transform spawnA, spawnB;
-
-    public GameObject Canvas, middle,NextLevel,respawn,restart;
-    public TMPro.TextMeshProUGUI EndGameMessage;
+    
+    //Assigned by DeathZoneAssigner
+    [HideInInspector] public GameObject EndGameCanvas, middle,NextLevel,respawn,restart;
+    [HideInInspector] public TMPro.TextMeshProUGUI EndGameMessage;
 
     private EndOfLevelArena _callback = null;
     private CountdownStartGame _countdownRef;
@@ -51,7 +52,7 @@ public class PlayerRespawn : MonoBehaviour
         playerB.gameObject.SetActive(true);
         middle.SetActive(true);
 
-        Canvas.SetActive(false);
+        EndGameCanvas.SetActive(false);
         if(_callback != null) { 
             _callback.cameraChange.swapback = true;
             _callback = null;
@@ -79,7 +80,7 @@ public class PlayerRespawn : MonoBehaviour
         if(gameWon)
         {
             int currentLevel = SceneManager.GetActiveScene().buildIndex;
-            if(currentLevel + 1 > SceneManager.sceneCount)
+            if(currentLevel + 1 == SceneManager.sceneCountInBuildSettings)
             {
                 //Game Complete
                 EndGameMessage.text = "Thank you for playing !";
@@ -104,6 +105,6 @@ public class PlayerRespawn : MonoBehaviour
             restart.SetActive(false);
             NextLevel.SetActive(false);
         }
-        Canvas.SetActive(true);
+        EndGameCanvas.SetActive(true);
     }
 }
