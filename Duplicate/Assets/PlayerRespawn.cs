@@ -121,9 +121,7 @@ public class PlayerRespawn : MonoBehaviour
             respawn.SetActive(true);
             restart.SetActive(false);
             NextLevel.SetActive(false);
-            uiAnimator.SetTrigger("GameLost");
-            
+            uiAnimator.SetTrigger("GameLost");   
         }
-        EndGameCanvas.SetActive(true);
     }
 }
