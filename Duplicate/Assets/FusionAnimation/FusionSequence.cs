@@ -32,6 +32,10 @@ public class FusionSequence : SerializedScriptableObject
         // Create new instance of player images
         var playerA = GameObject.Instantiate(Player1Image, Player1Image.transform.position, Quaternion.identity);
         var playerB = GameObject.Instantiate(Player2Image, Player2Image.transform.position, Quaternion.identity);
+
+        // TODO create instances of particular prefab
+
+
         // Invert Sprite on playerB
         playerB.transform.localScale = new Vector3(-playerB.transform.localScale.x, playerB.transform.localScale.y, playerB.transform.localScale.z);
 

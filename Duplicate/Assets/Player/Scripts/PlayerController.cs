@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
     private float _inputSpeed = 1;
     private float _isJumpingAxis;
     private float _floorCheckDistance = 0.25f;
-    
+
     private bool _isJumping;
     private bool _isGrounded;
     private bool _isShooting;
@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
     private bool _isActive;
     private bool _ableToShoot;
     private bool _ableToSlide;
-    
+
     private Vector2 _defaultSlidingOffset;
     private Vector2 _defaultSlidingSizeY;
     private PlayerAnimation _actor;
@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer _spriteRenderer;
     private BoxCollider2D _collider;
     private int _specialDirection;    //meant to give either 1 or -1 to give the opposite robot an inverted behavior
-    
+
     private const string _jump1ButtonName = "Jump";
     private const string _shoot1ButtonName = "Fire1";
     private const string _shoot2ButtonName = "Fire2";
@@ -48,15 +48,15 @@ public class PlayerController : MonoBehaviour
         get => _isActive;
         set
         {
-            
-            if(_actor) _actor.SetMoveSpeed(value);
-            if(!value) StopAllCoroutines();
+
+            if (_actor) _actor.SetMoveSpeed(value);
+            if (!value) StopAllCoroutines();
 
             _isActive = value;
         }
     }
 
-    
+
     private void Awake()
     {
         _collider = GetComponent<BoxCollider2D>();
@@ -67,14 +67,8 @@ public class PlayerController : MonoBehaviour
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _specialDirection = MovementInverted ? -1 : 1;
 
-        if(MovementInverted)
-        {
-            DataManager.SetValue(DataKeys.PLAYERB,this);
-        }
-        else
-        {
-            DataManager.SetValue(DataKeys.PLAYERA,this);
-        }
+        var key = MovementInverted ? DataKeys.PLAYERB : DataKeys.PLAYERA;
+        DataManager.SetValue(key, this);
     }
 
     private void OnEnable()
@@ -85,11 +79,16 @@ public class PlayerController : MonoBehaviour
         _isJumping = false;
         _isShooting = false;
         _isSliding = false;
+
+        if (!MovementInverted)
+        {
+            DataManager.SetValue(DataKeys.PLAYERA_STARTLINE, transform.position);
+        }
     }
 
     private void Update()
     {
-        if(!IsActive)
+        if (!IsActive)
         {
             _actor.SetMoveSpeed(false);
             return;
@@ -99,14 +98,14 @@ public class PlayerController : MonoBehaviour
         Jump();
         //Shoot();
         FloorAndFallingCheck();
-        
+
     }
 
     private void Slide()
     {
-        if(!_isGrounded || _isSliding) return;
+        if (!_isGrounded || _isSliding) return;
         _isSliding = Input.GetButtonDown(MovementInverted ? _slide2ButtonName : _slide1ButtonName);
-        if(_isSliding && _ableToSlide)
+        if (_isSliding && _ableToSlide)
         {
             _ableToSlide = false;
             _actor.SetAnimation(PlayerStates.Slide);
@@ -130,14 +129,14 @@ public class PlayerController : MonoBehaviour
     private void Shoot()
     {
         _isShooting = Input.GetButtonDown(MovementInverted ? _shoot2ButtonName : _shoot1ButtonName);
-        if(_isShooting && _ableToShoot)
+        if (_isShooting && _ableToShoot)
         {
             _ableToShoot = false;
             _cooldownTime = Time.time + FireRate;
             var spawnPoint = _spriteRenderer.flipX ? GunLeftTransform : GunRightTransform;
-            Instantiate(BulletPrefab, spawnPoint.position,spawnPoint.rotation);
+            Instantiate(BulletPrefab, spawnPoint.position, spawnPoint.rotation);
         }
-        else if(Time.time > _cooldownTime)
+        else if (Time.time > _cooldownTime)
         {
             _ableToShoot = true;
         }
@@ -145,10 +144,10 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
-        if(_isSliding) return;
+        if (_isSliding) return;
         //Jumping Check
         _isJumpingAxis = Input.GetAxis(_jump1ButtonName);
-        if(_isJumpingAxis > 0 && _isGrounded && !_isJumping)
+        if (_isJumpingAxis > 0 && _isGrounded && !_isJumping)
         {
             _rb.AddForce(transform.up * JumpForce);
             _actor.SetAnimation(PlayerStates.Jumping);
@@ -160,23 +159,23 @@ public class PlayerController : MonoBehaviour
     private void FloorAndFallingCheck()
     {
         //Checking if player is falling
-        if(_rb.velocity.y < 0)
+        if (_rb.velocity.y < 0)
         {
             _actor.SetAnimation(PlayerStates.Falling);
             _isJumping = true;
             _isGrounded = false;
         }
         //Floor Checking
-        if(!_isGrounded && _isJumping)
+        if (!_isGrounded && _isJumping)
         {
             _ray = Physics2D.Raycast(transform.position, -transform.up, _floorCheckDistance, FloorMask);
             //Debug.DrawRay(transform.position,-transform.up * _floorCheckDistance,Color.red,2);
-            if(_ray.collider != null)
+            if (_ray.collider != null)
             {
                 _isJumping = false;
                 _actor.SetAnimation(PlayerStates.Grounded);
                 StartCoroutine(DelayToEnableJump());
-            }    
+            }
         }
     }
 
@@ -184,7 +183,6 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForFixedUpdate();
         _isGrounded = true;
-        
     }
 
     IEnumerator DelayToCheckFloor()

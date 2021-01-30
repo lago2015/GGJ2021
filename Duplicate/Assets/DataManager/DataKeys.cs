@@ -5,13 +5,14 @@ using UnityEngine;
 
 public static class DataKeys
 {
-    public const string PLAYERA = "PlayerA";
+    public const string PLAYERA = "PlayerA"; // type : PlayerController
 
-    public const string PLAYERB = "PlayerB";
+    public const string PLAYERB = "PlayerB"; // type : PlayerController
 
-    public const string PLAYERA_FINISHLINE = "PlayerA_FinishLine";
-    
-    public const string PLAYERB_FINISHLINE = "PlayerB_FinishLine";
+    public const string PLAYERA_FINISHLINE = "PlayerA_FinishLine"; // type : Vector 3
+
+    public const string PLAYERB_FINISHLINE = "PlayerB_StartLine"; // type : Vector 3
+    public static string PLAYERA_STARTLINE = "START_POSITION_A"; // type : Vector3
 
     public const string PLAYER_RESPAWN = "PlayerRespawn";
 

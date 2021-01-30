@@ -9,6 +9,8 @@ public class ProgressBar : MonoBehaviour
     public static ProgressBar _instance;
     private PlayerController _playerController;
     private Vector3 _finishLinePosition;
+    private Vector3 _startLinePosition; // player A
+    private float _totalDistance;
     private bool _isActive;
 
     public bool IsActive
@@ -16,16 +18,18 @@ public class ProgressBar : MonoBehaviour
         get => _isActive;
         set => _isActive = value;
     }
-    
+
     private void Awake()
     {
         if (_instance == null) _instance = this;
-        DataManager.SetValue(DataKeys.PROGRESSBAR,this);
+        DataManager.SetValue(DataKeys.PROGRESSBAR, this);
     }
 
     private void Start()
     {
+        _startLinePosition = DataManager.GetValue<Vector3>(DataKeys.PLAYERA_STARTLINE);
         _finishLinePosition = DataManager.GetValue<Vector3>(DataKeys.PLAYERA_FINISHLINE);
+        _totalDistance = Vector2.Distance(_finishLinePosition, _startLinePosition);
         _playerController = DataManager.GetValue<PlayerController>(DataKeys.PLAYERA);
     }
 
@@ -36,10 +40,11 @@ public class ProgressBar : MonoBehaviour
 
     private void CheckPlayerDistance()
     {
-        //PlayerA
-        var playerA = _playerController.transform.position;
-        var distance = (_finishLinePosition - playerA).normalized;
-        UpdateSliders(1 - distance.x);
+        var curPos = _playerController.transform.position;
+        var distanceToFinish = Mathf.Abs(_finishLinePosition.x - curPos.x);
+        var progress = 1 - (distanceToFinish / _totalDistance);
+
+        UpdateSliders(progress);
     }
 
     /// <param name="value">zero to one</param>
