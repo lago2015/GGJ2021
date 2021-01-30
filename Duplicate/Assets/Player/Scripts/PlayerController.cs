@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
 {
     [Header("Specific for inverted Robot")]
     public bool MovementInverted;
-    public bool IsActive;
     public float FireRate;
     public float MoveSpeed;
     public float JumpForce;
@@ -28,24 +27,36 @@ public class PlayerController : MonoBehaviour
     private bool _isGrounded;
     private bool _isShooting;
     private bool _ableToShoot;
+    private bool _isActive;
+
+    private PlayerAnimation _actor;
     private RaycastHit2D _ray;
     private Rigidbody2D _rb;
     private SpriteRenderer _spriteRenderer;
-    private Animator _anim;
+    private PlayerRespawn _playerRespawn;
     private int _specialDirection;    //meant to give either 1 or -1 to give the opposite robot an inverted behavior
-    private const string _jumpAnimName = "IsJumping";
-    private const string _moveAnimName = "MoveSpeed";
+    
     private const string _jump1ButtonName = "Jump";
     private const string _shoot1ButtonName = "Fire1";
     private const string _shoot2ButtonName = "Fire2";
     
+    public bool IsActive
+    {
+        get { return _isActive;}
+        set
+        {
+            if(_actor) _actor.SetMoveSpeed(value); 
+            _isActive = value;
+        }
+    }
+    
     private void Awake()
     {
+        _playerRespawn = FindObjectOfType<PlayerRespawn>();
         _rb = GetComponent<Rigidbody2D>();
-        _anim = GetComponentInChildren<Animator>();
+        _actor = GetComponent<PlayerAnimation>();
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _specialDirection = MovementInverted ? -1 : 1;
-        
     }
 
     private void OnEnable()
@@ -54,18 +65,25 @@ public class PlayerController : MonoBehaviour
         _isGrounded = true;
         _isJumping = false;
         _isShooting = false;
+        
     }
 
     private void Update()
     {
         if(!IsActive)
         {
-            _anim.SetFloat(_moveAnimName, 0);
+            _actor.SetMoveSpeed(false);
             return;
         }
         Movement();
         Jump();
-        Shoot();
+        //Shoot();
+        FloorAndFallingCheck();
+        /*//Check velocity if to determine death
+        if(_rb.velocity.magnitude <= 0)
+        {
+            _playerRespawn.GameOver();
+        }*/
     }
 
     private void Shoot()
@@ -86,15 +104,27 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
+        //Jumping Check
         _isJumpingAxis = Input.GetAxis(_jump1ButtonName);
         if(_isJumpingAxis > 0 && _isGrounded && !_isJumping)
         {
             _rb.AddForce(transform.up * JumpForce);
-            _anim.SetBool(_jumpAnimName,true);
+            _actor.SetAnimation(PlayerStates.Jumping);
             StartCoroutine(DelayToCheckFloor());
             _isJumping = true;
         }
         
+    }
+
+    private void FloorAndFallingCheck()
+    {
+        //Checking if player is falling
+        if(_rb.velocity.y < 0)
+        {
+            _actor.SetAnimation(PlayerStates.Falling);
+            _isJumping = true;
+            _isGrounded = false;
+        }
         //Floor Checking
         if(!_isGrounded && _isJumping)
         {
@@ -103,7 +133,7 @@ public class PlayerController : MonoBehaviour
             if(_ray.collider != null)
             {
                 _isJumping = false;
-                _anim.SetBool(_jumpAnimName,false);
+                _actor.SetAnimation(PlayerStates.Grounded);
                 StartCoroutine(DelayToEnableJump());
             }    
         }
@@ -124,8 +154,9 @@ public class PlayerController : MonoBehaviour
 
     private void Movement()
     {
-        _anim.SetFloat(_moveAnimName,_inputSpeed);
         //Movement
         transform.position += new Vector3(_inputSpeed, 0, 0) * Time.deltaTime * MoveSpeed * _specialDirection;
     }
+
+    
 }

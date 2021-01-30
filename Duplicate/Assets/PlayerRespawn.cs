@@ -21,6 +21,11 @@ public class PlayerRespawn : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other) {
         // Trigger death.
+        GameOver();
+    }
+
+    public void GameOver()
+    {
         TriggerPlayers(true);
         SetUpGameEndScreen(false);
         

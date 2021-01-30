@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7977087704887365325}
+  - component: {fileID: 6267633512822991446}
   - component: {fileID: 3543222571138538858}
   - component: {fileID: 617435287966705750}
   - component: {fileID: 5946883625804965009}
@@ -36,6 +37,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6267633512822991446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1510948455746776366}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 415d1d6f6b31d2a4b94f41b394736a0e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3543222571138538858
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49,7 +62,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MovementInverted: 0
-  IsActive: 0
   FireRate: 1
   MoveSpeed: 1.5
   JumpForce: 190
