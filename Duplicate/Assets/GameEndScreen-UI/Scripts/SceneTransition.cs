@@ -16,6 +16,26 @@ public class SceneTransition : MonoBehaviour
         int currentLevel = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentLevel + 1);
     }
+
+    public void NextLevelWithDelay()
+    {
+        int currentLevel = SceneManager.GetActiveScene().buildIndex;
+        if(currentLevel + 1 >= SceneManager.sceneCountInBuildSettings)
+        {
+            DataManager.MakeItRain<PlayerRespawn>(DataKeys.PLAYER_RESPAWN).SetUpGameCompleteScreen();
+        }
+        else
+        {
+            StartCoroutine(DelayToNextLevel());    
+        }
+    }
+
+    IEnumerator DelayToNextLevel()
+    {
+        yield return new WaitForSeconds(0.5f);
+        NextLevel();
+    }
+    
     //Called from a unity button
     public void RestartGame()
     {

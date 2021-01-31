@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PlayerRespawn : MonoBehaviour
 {
-    public Animator uiAnimator;
+    [HideInInspector] public Animator uiAnimator;
 
     public Transform spawnA, spawnB;
 
@@ -33,7 +33,7 @@ public class PlayerRespawn : MonoBehaviour
     public void GameOver()
     {
         TriggerPlayers(true);
-        SetUpGameEndScreen(false);
+        SetUpGameOverScreen();
     }
 
     public void StartGame()
@@ -56,7 +56,7 @@ public class PlayerRespawn : MonoBehaviour
         DataManager.MakeItRain<FusionSequence>(DataKeys.FUSION_SEQUENCE)
                         .MainSequence()
                         .Play()
-                        .OnComplete(()=>DataManager.MakeItRain<SceneTransition>(DataKeys.SCENE_TRANSITION).NextLevel());
+                        .OnComplete(()=>DataManager.MakeItRain<SceneTransition>(DataKeys.SCENE_TRANSITION).NextLevelWithDelay());
         
         _callback = callback;
     }
@@ -90,38 +90,23 @@ public class PlayerRespawn : MonoBehaviour
         }
     }
 
-    private void SetUpGameEndScreen(bool gameWon)
+    public void SetUpGameCompleteScreen()
     {
-        if (gameWon)
-        {
-            int currentLevel = SceneManager.GetActiveScene().buildIndex;
-            if (currentLevel + 1 == SceneManager.sceneCountInBuildSettings)
-            {
-                //Game Complete
-                EndGameMessage.text = "Thank you for playing !";
-                restart.SetActive(true);
-                NextLevel.SetActive(false);
-                respawn.SetActive(false);       
-                uiAnimator.SetTrigger("GameBeaten");
-            }
-            else
-            {
-                //Next Level
-                EndGameMessage.text = "WUN";
-                NextLevel.SetActive(true);
-                restart.SetActive(false);
-                respawn.SetActive(false);
-                uiAnimator.SetTrigger("LevelWon");
-            }
-        }
-        else
-        {
-            //Player lost
-            EndGameMessage.text = "DED";
-            respawn.SetActive(true);
-            restart.SetActive(false);
-            NextLevel.SetActive(false);
-            uiAnimator.SetTrigger("GameLost");   
-        }
+        //Game Complete
+        EndGameMessage.text = "Thank you for playing !";
+        restart.SetActive(true);
+        NextLevel.SetActive(false);
+        respawn.SetActive(false);       
+        uiAnimator.SetTrigger("GameBeaten");
+    }
+
+    public void SetUpGameOverScreen()
+    {
+        //Player lost
+        EndGameMessage.text = "DED";
+        respawn.SetActive(true);
+        restart.SetActive(false);
+        NextLevel.SetActive(false);
+        uiAnimator.SetTrigger("GameLost");   
     }
 }

@@ -16,7 +16,11 @@ public class ProgressBar : MonoBehaviour
     public bool IsActive
     {
         get => _isActive;
-        set => _isActive = value;
+        set
+        {
+            if(value) UpdateSliders(0);
+            _isActive = value;  
+        } 
     }
 
     private void Awake()
