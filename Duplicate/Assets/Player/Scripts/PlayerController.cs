@@ -158,6 +158,12 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(DelayToCheckFloor());
             _isJumping = true;
         }
+
+        if(_rb.velocity.y > 10)
+        {
+            var newVelocity = new Vector2(_rb.velocity.x, 10);
+            _rb.velocity = newVelocity;
+        }
     }
 
     private void FloorAndFallingCheck()
