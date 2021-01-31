@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using DG.Tweening;
 using UnityEngine;
 
 
@@ -84,6 +85,8 @@ public class PlayerController : MonoBehaviour
         {
             DataManager.ToTheCloud(DataKeys.PLAYERA_STARTLINE, transform.position);
         }
+
+        DOVirtual.DelayedCall(0.1f, () => ReskinVisuals());
     }
 
     private void Update()
@@ -196,5 +199,16 @@ public class PlayerController : MonoBehaviour
     {
         //Movement
         transform.position += new Vector3(_inputSpeed, 0, 0) * Time.deltaTime * MoveSpeed * _specialDirection;
+    }
+
+    /// <summary>
+    /// Set sprite to correct material based on current leveltheme
+    /// </summary>
+    public void ReskinVisuals()
+    {
+        var levelTheme = DataManager.MakeItRain<LevelThemeData>(DataKeys.CURRENT_LEVEL_THEME);
+        _spriteRenderer.material = new Material(MovementInverted
+                                    ? levelTheme.PlayerB_Material
+                                    : levelTheme.PlayerA_Material);
     }
 }

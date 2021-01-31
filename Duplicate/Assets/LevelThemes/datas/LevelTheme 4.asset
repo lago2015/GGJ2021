@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c88da46aa7e87241acc1b8b465bdd8d, type: 3}
+  m_Name: LevelTheme 4
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  PlayerA_Material: {fileID: 2100000, guid: d645824d036afd84c8c9b5f4e152b3cb, type: 2}
+  PlayerB_Material: {fileID: 2100000, guid: a084742ccb958524eb718ae63f87dcef, type: 2}
+  PlayerA_VFX: {r: 0.62352943, g: 1, b: 0.99607843, a: 0.6156863}
+  PlayerB_VFX: {r: 0.9716981, g: 0.36696, b: 0.19708972, a: 0.6156863}

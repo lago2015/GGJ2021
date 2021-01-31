@@ -22,7 +22,7 @@ public class ProgressBar : MonoBehaviour
     private void Awake()
     {
         if (_instance == null) _instance = this;
-        DataManager.ToTheCloud(DataKeys.PROGRESSBAR,this);
+        DataManager.ToTheCloud(DataKeys.PROGRESSBAR, this);
     }
 
     private void Start()
@@ -31,6 +31,17 @@ public class ProgressBar : MonoBehaviour
         _finishLinePosition = DataManager.MakeItRain<Vector3>(DataKeys.PLAYERA_FINISHLINE);
         _totalDistance = Vector2.Distance(_finishLinePosition, _startLinePosition);
         _playerController = DataManager.MakeItRain<PlayerController>(DataKeys.PLAYERA);
+        ReskinHandlesAndBars();
+    }
+
+    private void ReskinHandlesAndBars()
+    {
+        var levelTheme = DataManager.MakeItRain<LevelThemeData>(DataKeys.CURRENT_LEVEL_THEME);
+
+        SliderL.targetGraphic.material = new Material(levelTheme.PlayerA_Material);
+        SliderR.targetGraphic.material = new Material(levelTheme.PlayerB_Material);
+        SliderL.fillRect.GetComponent<Image>().material = new Material(levelTheme.PlayerA_Material);
+        SliderR.fillRect.GetComponent<Image>().material = new Material(levelTheme.PlayerB_Material);
     }
 
     private void FixedUpdate()

@@ -9,7 +9,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3633020818218119972, guid: 71b29840248a99342b1701e3ff2fa353, type: 3}
       propertyPath: m_Name
-      value: GodRays_PS VariantA
+      value: GodRays_PS
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633020818218119977, guid: 71b29840248a99342b1701e3ff2fa353, type: 3}
+      propertyPath: InitialModule.startColor.maxColor.a
+      value: 0.18431373
       objectReference: {fileID: 0}
     - target: {fileID: 3633020818218119977, guid: 71b29840248a99342b1701e3ff2fa353, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
@@ -23,9 +27,21 @@ PrefabInstance:
       propertyPath: InitialModule.startColor.maxColor.r
       value: 0.62352943
       objectReference: {fileID: 0}
+    - target: {fileID: 3633020818218119978, guid: 71b29840248a99342b1701e3ff2fa353, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6f3dfa46fa899154da782663a2c11fa1, type: 2}
     - target: {fileID: 3633020818218119979, guid: 71b29840248a99342b1701e3ff2fa353, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633020818218119979, guid: 71b29840248a99342b1701e3ff2fa353, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633020818218119979, guid: 71b29840248a99342b1701e3ff2fa353, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3633020818218119979, guid: 71b29840248a99342b1701e3ff2fa353, type: 3}
       propertyPath: m_LocalPosition.x

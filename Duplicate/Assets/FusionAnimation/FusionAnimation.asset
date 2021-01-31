@@ -21,8 +21,10 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  Player1Image: {fileID: 0}
-  Player2Image: {fileID: 0}
+  PlayerGhostPrefab: {fileID: 7963504955645030347, guid: 3ee4fc41740ebca439ee3b8bc1f434bb, type: 3}
+  PlayerGhost_B: {fileID: 0}
+  GlowNova_PS: {fileID: 3633020818218119972, guid: 296eeb30860d2ee4a91fc10f4457936b, type: 3}
+  GodRays_PS: {fileID: 3132007074774799759, guid: 9a08534ede3b00b4d909469f24fdd476, type: 3}
   MoveBack_Offset: {x: -1, y: 1, z: 0}
   MoveBack_Duration: 1
   MoveBack_Ease: 15

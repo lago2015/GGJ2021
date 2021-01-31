@@ -14,13 +14,12 @@ public class DeathZoneAssigner : MonoBehaviour
     public Animator Animator;
     public FusionSequence FusionSequence;
     private PlayerRespawn _playerRespawn;
-    
 
     private void Awake()
     {
         _playerRespawn = FindObjectOfType<PlayerRespawn>();
-        if(!_playerRespawn) return;
-        
+        if (!_playerRespawn) return;
+
         _playerRespawn.NextLevel = NextLevel;
         _playerRespawn.EndGameCanvas = EndGameCanvas;
         _playerRespawn.middle = MiddleImage;
@@ -28,7 +27,7 @@ public class DeathZoneAssigner : MonoBehaviour
         _playerRespawn.restart = RestartButton;
         _playerRespawn.EndGameMessage = EndGameMessage;
         _playerRespawn.uiAnimator = Animator;
-        
-        DataManager.ToTheCloud(DataKeys.FUSION_SEQUENCE,FusionSequence);
+
+        DataManager.ToTheCloud(DataKeys.FUSION_SEQUENCE, FusionSequence);
     }
 }
