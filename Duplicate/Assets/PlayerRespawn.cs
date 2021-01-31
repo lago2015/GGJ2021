@@ -69,7 +69,6 @@ public class PlayerRespawn : MonoBehaviour
         _playerB.gameObject.SetActive(true);
         middle.SetActive(true);
 
-        EndGameCanvas.SetActive(false);
         if (_callback != null)
         {
             _callback.cameraChange.swapback = true;
