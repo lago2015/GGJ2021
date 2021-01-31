@@ -55,8 +55,9 @@ public class PlayerRespawn : MonoBehaviour
         // Play Fusion Sequence and then
         DataManager.MakeItRain<FusionSequence>(DataKeys.FUSION_SEQUENCE)
                         .MainSequence()
-                        .Play();
-        DataManager.MakeItRain<SceneTransition>(DataKeys.SCENE_TRANSITION).NextLevel();
+                        .Play()
+                        .OnComplete(()=>DataManager.MakeItRain<SceneTransition>(DataKeys.SCENE_TRANSITION).NextLevel());
+        
         _callback = callback;
     }
     
