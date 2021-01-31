@@ -23,5 +23,5 @@ MonoBehaviour:
     SerializationNodes: []
   PlayerA_Material: {fileID: 2100000, guid: 3f62ea337c34f1b4ea9d5020bd28d81e, type: 2}
   PlayerB_Material: {fileID: 2100000, guid: 56a9c35482fc8ad4c8262f54cb8572e2, type: 2}
-  PlayerA_VFX: {r: 0.62352943, g: 1, b: 0.99607843, a: 0.6156863}
-  PlayerB_VFX: {r: 0.9716981, g: 0.36696, b: 0.19708972, a: 0.6156863}
+  PlayerA_VFX: {r: 0.013616921, g: 0.9622642, b: 0.9523824, a: 0.9019608}
+  PlayerB_VFX: {r: 0.9622642, g: 0.21383649, b: 0, a: 0.972549}

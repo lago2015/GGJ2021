@@ -13,6 +13,7 @@ public class FusionSequence : SerializedScriptableObject
 
     public GameObject GlowNova_PS;
     public GameObject GodRays_PS;
+    public GameObject Finalie_PS;
 
     [Button]
     public void TestPlay()
@@ -45,7 +46,7 @@ public class FusionSequence : SerializedScriptableObject
         seq.Join(HoldInAirSequence(playerB, levelTheme, true));
 
         // Fly togeather sequence
-        Vector3 endPosition = Vector3.Lerp(playerA.transform.position, playerB.transform.position, 0.5f);
+        Vector2 endPosition = Vector2.Lerp(playerA.transform.position, playerB.transform.position, 0.5f);
         seq.Append(FlyTogetherSequence(playerA, endPosition));
         seq.Join(FlyTogetherSequence(playerB, endPosition));
 
@@ -53,6 +54,7 @@ public class FusionSequence : SerializedScriptableObject
         seq.AppendInterval(1.5f);
         seq.AppendCallback(() =>
             {
+                GameObject.Instantiate(Finalie_PS, playerA.transform.position, Quaternion.identity);
                 GameObject.Destroy(playerA);
                 GameObject.Destroy(playerB);
             });
@@ -87,7 +89,7 @@ public class FusionSequence : SerializedScriptableObject
 
         // Set x direction to move back appropriately
         var moveBackOffset = inverted
-                            ? new Vector3(-MoveBack_Offset.x, MoveBack_Offset.y, MoveBack_Offset.z)
+                            ? new Vector3(-MoveBack_Offset.x, MoveBack_Offset.y, 0)
                             : MoveBack_Offset;
 
         // Move robot back
@@ -146,7 +148,7 @@ public class FusionSequence : SerializedScriptableObject
     [FoldoutGroup("HoldInAir Anim")] public Ease FlyTogether_Ease = Ease.OutQuad;
     [FoldoutGroup("HoldInAir Anim")] public float FlyTogether_MoveUp_Amount = 1f;
     [FoldoutGroup("HoldInAir Anim")] public Ease FlyTogether_MoveUp_Ease = Ease.OutQuad;
-    private Sequence FlyTogetherSequence(GameObject player, Vector3 endPosition)
+    private Sequence FlyTogetherSequence(GameObject player, Vector2 endPosition)
     {
         var seq = DOTween.Sequence();
 
